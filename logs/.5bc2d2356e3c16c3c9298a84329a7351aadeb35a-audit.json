@@ -1,0 +1,20 @@
+{
+    "keep": {
+        "days": true,
+        "amount": 14
+    },
+    "auditLog": "/Users/usamabinshahid/finance-tracker-backend/logs/.5bc2d2356e3c16c3c9298a84329a7351aadeb35a-audit.json",
+    "files": [
+        {
+            "date": 1742907024709,
+            "name": "/Users/usamabinshahid/finance-tracker-backend/logs/error-2025-03-25.log",
+            "hash": "7bc1dd6ad6dad8c63253508fbd6e41ef8a6657f37631421845a43cb5d6da1a96"
+        },
+        {
+            "date": 1743105945667,
+            "name": "/Users/usamabinshahid/finance-tracker-backend/logs/error-2025-03-28.log",
+            "hash": "37d2971a7ecf202dc2ebe3c6995a2d5f0bb379875dffc0aa9ca1353787aaeff7"
+        }
+    ],
+    "hashType": "sha256"
+}

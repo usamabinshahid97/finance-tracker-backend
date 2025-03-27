@@ -1,0 +1,121 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id           String        @id @default(uuid())
+  email        String        @unique
+  name         String?
+  accounts     Account[]
+  creditCards  CreditCard[]
+  transactions Transaction[]
+  categories   Category[]
+  statements   Statement[]
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now())
+  deletedAt    DateTime?
+}
+
+model Account {
+  id            String        @id @default(uuid())
+  userId        String
+  name          String
+  accountNumber String
+  bankName      String
+  balance       Float         @default(0)
+  transactions  Transaction[]
+  statements   Statement[]
+  user          User          @relation(fields: [userId], references: [id])
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @default(now())
+  deletedAt    DateTime?
+}
+
+model CreditCard {
+  id             String        @id @default(uuid())
+  userId         String
+  name           String
+  cardNumber     String
+  bank           String
+  creditLimit    Float
+  currentBalance Float         @default(0)
+  transactions   Transaction[]
+  statements   Statement[]
+  user           User          @relation(fields: [userId], references: [id])
+  createdAt      DateTime      @default(now())
+  updatedAt      DateTime      @default(now())
+  deletedAt    DateTime?
+}
+
+model Transaction {
+  id           String      @id @default(uuid())
+  userId       String
+  accountId    String?
+  creditCardId String?
+  amount       Float
+  description  String
+  date         DateTime
+  categoryId   String?
+  isExpense    Boolean
+  account      Account?    @relation(fields: [accountId], references: [id])
+  creditCard   CreditCard? @relation(fields: [creditCardId], references: [id])
+  category     Category?   @relation(fields: [categoryId], references: [id])
+  user         User        @relation(fields: [userId], references: [id])
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @default(now())
+  deletedAt    DateTime?
+}
+
+model Statement {
+  id           String      @id @default(uuid())
+  userId       String
+  fileName     String
+  fileType     String
+  filePath     String
+  processingStatus StatementProcessingStatus
+  accountId        String?
+  creditCardId     String?
+  uploadedAt       DateTime                  @default(now())
+  processedAt      DateTime?
+  account      Account?    @relation(fields: [accountId], references: [id])
+  creditCard   CreditCard? @relation(fields: [creditCardId], references: [id])
+  user         User        @relation(fields: [userId], references: [id])
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @default(now())
+  deletedAt    DateTime?
+}
+
+model Category {
+  id           String        @id @default(uuid())
+  userId       String
+  name         String
+  type         CategoryType
+  transactions Transaction[]
+  user         User          @relation(fields: [userId], references: [id])
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @default(now())
+  deletedAt    DateTime?
+}
+
+enum CategoryType {
+  INCOME
+  EXPENSE
+}
+
+enum StatementProcessingStatus {
+  PENDING
+  PROCESSING
+  COMPLETED
+  FAILED
+}

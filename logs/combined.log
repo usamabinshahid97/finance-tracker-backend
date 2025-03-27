@@ -1,0 +1,2 @@
+{"level":"debug","message":"Logging initialized at debug level","service":"finance-tracker","timestamp":"2025-03-28 01:32:56"}
+{"level":"info","message":"SIGINT received, shutting down gracefully","service":"finance-tracker","timestamp":"2025-03-28 02:07:49"}
