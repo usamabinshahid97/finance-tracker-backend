@@ -9,13 +9,13 @@ export function configureSupertokens() {
   supertokens.init({
     framework: "express",
     supertokens: {
-      connectionURI: process.env.SUPERTOKENS_CONNECTION_URI || "",
+      connectionURI: process.env.SUPERTOKENS_CONNECTION_URI || "https://try.supertokens.io",
       apiKey: process.env.SUPERTOKENS_API_KEY,
     },
     appInfo: {
-      appName: "Finance Tracker",
-      apiDomain: process.env.API_DOMAIN || "",
-      websiteDomain: process.env.WEBSITE_DOMAIN || "",
+      appName: "Personal Finance Tracker",
+      apiDomain: process.env.API_DOMAIN || "http://localhost:8000",
+      websiteDomain: process.env.WEBSITE_DOMAIN || "http://localhost:3000",
       apiBasePath: "/auth",
       websiteBasePath: "/auth",
     },
